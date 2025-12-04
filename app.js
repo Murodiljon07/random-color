@@ -21,12 +21,10 @@ function getRandomColor() {
 
 /* Function to generate RGB random color */
 function rgbRandomColor() {
-  const letters = "0123456789ABCDEF";
-  let red = letters.charAt(Math.trunc(Math.random() * letters.length));
-  let green = letters.charAt(Math.trunc(Math.random() * letters.length));
-  let blue = letters.charAt(Math.trunc(Math.random() * letters.length));
-
-  let color = `${red},${green},${blue}`;
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  let color = `rgb(${r}, ${g}, ${b})`;
 
   if (ColorType.textContent === "RGB:") {
     ColorCode.textContent = color;
@@ -36,6 +34,22 @@ function rgbRandomColor() {
 
 console.log(ColorDisplay);
 
+/* Function to generate RGB random color */
+function linerGDcolor() {
+  const color1 = rgbRandomColor();
+  const color2 = rgbRandomColor();
+  const color3 = rgbRandomColor();
+  const angle = Math.floor(Math.random() * 360);
+
+  let color = `linear-gradient(${angle}deg, ${color1}, ${color2}, ${color3})`;
+
+  if (ColorType.textContent === "RGB:") {
+    ColorCode.textContent = color;
+  }
+
+  return color;
+}
+
 /* Event listener for color type change */
 ColorTypeChange.addEventListener("click", () => {
   if (ColorTypeChange.textContent === "HEX") {
@@ -43,12 +57,21 @@ ColorTypeChange.addEventListener("click", () => {
     ColorType.textContent = "HEX:";
     GenerateBtn.addEventListener("click", () => {
       ColorDisplay.style.background = getRandomColor();
+      document.body.style.background = getRandomColor();
     });
-  } else {
-    ColorTypeChange.textContent = "HEX";
+  } else if (ColorTypeChange.textContent === "RGB") {
+    ColorTypeChange.textContent = "LinerRGB";
     ColorType.textContent = "RGB:";
     GenerateBtn.addEventListener("click", () => {
-      ColorDisplay.style.backgroundColor = rgbRandomColor();
+      ColorDisplay.style.background = rgbRandomColor();
+      document.body.style.background = rgbRandomColor();
+    });
+  } else if (ColorTypeChange.textContent === "LinerRGB") {
+    ColorTypeChange.textContent = "HEX";
+    ColorType.textContent = "LinerRGB:";
+    GenerateBtn.addEventListener("click", () => {
+      ColorDisplay.style.background = linerGDcolor();
+      document.body.style.background = linerGDcolor();
     });
   }
 });

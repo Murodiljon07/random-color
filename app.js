@@ -43,7 +43,7 @@ function linerGDcolor() {
 
   let color = `linear-gradient(${angle}deg, ${color1}, ${color2}, ${color3})`;
 
-  if (ColorType.textContent === "RGB:") {
+  if (ColorType.textContent === "LinerRGB:") {
     ColorCode.textContent = color;
   }
 
